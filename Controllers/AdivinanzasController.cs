@@ -24,6 +24,16 @@ namespace AdivinanzasWebApp.Controllers
         {
             return View(await _context.Adivinanza.ToListAsync());
         }
+        // GET: Adivinanzas/MostrarBuscador
+        public async Task<IActionResult> MostrarBuscador()
+        {
+            return View();
+        }
+        // GET: Adivinanzas/MostrarResultados
+        public async Task<IActionResult> MostrarResultados(string BuscarTermino)
+        {
+            return View("Index", await _context.Adivinanza.Where( a => a.Pregunta.Contains(BuscarTermino)).ToListAsync());
+        }
 
         // GET: Adivinanzas/Details/5
         public async Task<IActionResult> Details(int? id)
