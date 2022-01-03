@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdivinanzasWebApp.Data;
 using AdivinanzasWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdivinanzasWebApp.Controllers
 {
@@ -24,11 +25,13 @@ namespace AdivinanzasWebApp.Controllers
         {
             return View(await _context.Adivinanza.ToListAsync());
         }
+
         // GET: Adivinanzas/MostrarBuscador
         public async Task<IActionResult> MostrarBuscador()
         {
             return View();
         }
+
         // GET: Adivinanzas/MostrarResultados
         public async Task<IActionResult> MostrarResultados(string BuscarTermino)
         {
@@ -54,6 +57,7 @@ namespace AdivinanzasWebApp.Controllers
         }
 
         // GET: Adivinanzas/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -76,6 +80,7 @@ namespace AdivinanzasWebApp.Controllers
         }
 
         // GET: Adivinanzas/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,6 +101,7 @@ namespace AdivinanzasWebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Pregunta,Respuesta")] Adivinanza adivinanza)
         {
             if (id != adivinanza.Id)
@@ -127,6 +133,7 @@ namespace AdivinanzasWebApp.Controllers
         }
 
         // GET: Adivinanzas/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
